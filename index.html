@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title> Dog Image</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #dogImageContainer {
+      margin-bottom: 20px;
+    }
+
+    #dogImage {
+      /* max-width: 100%;
+      max-height: 100%; */
+      width: 250px;
+      height: 250px;
+    }
+  </style>
+</head>
+<body>
+  <div id="dogImageContainer"></div>
+  <button onclick="fetchRandomDogImage()" style="width: 250px; background-color: blue; color: whitevlra;">Get Dog</button>
+
+  <script>
+    function fetchRandomDogImage() {
+      fetch('https://random.dog/woof.json')
+        .then(response => response.json())
+        .then(data => {
+          const imageUrl = data.url;
+          const dogImageContainer = document.getElementById('dogImageContainer');
+          dogImageContainer.innerHTML = `<img id="dogImage" src="${imageUrl}" alt="Random Dog">`;
+        })
+        .catch(error => {
+          console.error('Error fetching dog image:', error);
+        });
+    }
+
+    // Fetch a random dog image when the page loads
+    document.addEventListener('DOMContentLoaded', fetchRandomDogImage);
+  </script>
+</body>
+</html>
